@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpr.bprbackend2.mapper.UserMapper">
+
+    <resultMap id="userResult" type="com.bpr.bprbackend2.model.User">
+        <id property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="birth" column="birth"/>
+    </resultMap>
+
+    <resultMap id="userNameMap" type="string">
+        <result property="username" column="username" />
+    </resultMap>
+
+    <select id="loginGet" resultType="com.bpr.bprbackend2.model.User">
+        SELECT User.user_id, username, password
+        FROM User
+        WHERE username = #{username}
+    </select>
+
+    <select id="getUserInfo" resultMap="userResult">
+        SELECT User.user_id, username, email, phone, User.birth
+        FROM User
+        WHERE username = #{username}
+    </select>
+
+    <select id="getUserInfoByUserId" resultMap="userResult">
+        SELECT User.user_id, username, email, phone, User.birth
+        FROM User
+        WHERE user_id = #{user_id}
+    </select>
+
+
+    <select id="getUserRole" resultType="string">
+        SELECT r.role_name
+        FROM Role r
+                 JOIN User u ON r.role_id = u.role_id
+        WHERE u.username = #{username};
+
+    </select>
+
+    <update id="updateUserPassword" parameterType="com.bpr.bprbackend2.model.User">
+        UPDATE User
+        <set>
+            <if test="password != null">
+            password = #{password},</if>
+        </set>
+        WHERE username = #{username}
+    </update>
+
+    <update id="updateUserInfo" parameterType="com.bpr.bprbackend2.model.User">
+        UPDATE User
+        <set>
+            <if test="username != null">username = #{username},</if>
+            email = #{email},
+            phone = #{phone},
+            birth = #{birth},
+        </set>
+        WHERE user_id = #{userId}
+    </update>
+
+    <select id="getUsernames" resultMap="userNameMap">
+        SELECT User.username
+        FROM User
+    </select>
+
+</mapper>

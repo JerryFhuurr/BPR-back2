@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: bpr-backend2
+  datasource:
+    url: jdbc:mysql://39.101.134.253:3306/backend?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: jerry123
+    username: root
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+  flyway:
+    loggers: log4j
+mybatis:
+  typeAliasesPackage: com.bpr.bprbackend2.model
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+# spring.data.jpa.repositories.enabled=true
+# spring.data.jpa.repositories.bootstrap-mode=default
+# spring.jpa.generate-ddl=true
+# spring.jpa.show-sql=true
+# spring.jpa.hibernate.ddl-auto=update
+# spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+logging:
+  level:
+    sql: info
