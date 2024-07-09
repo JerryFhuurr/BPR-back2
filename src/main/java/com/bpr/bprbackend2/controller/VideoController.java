@@ -3,10 +3,8 @@ package com.bpr.bprbackend2.controller;
 import com.bpr.bprbackend2.model.VideoFile;
 import com.bpr.bprbackend2.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 
@@ -30,5 +28,23 @@ public class VideoController {
     @GetMapping("get/list/user")
     public ArrayList<VideoFile> getListUser(@RequestParam int userId) {
         return videoService.getVideoListByUser(userId);
+    }
+
+    @PostMapping("/upload/")
+    public String uploadVideo(@RequestParam("file") MultipartFile file,
+                              @RequestParam("courseId") int courseId,
+                              @RequestParam("userId") int userId,
+                              @RequestParam("roleId") int roleId,
+                              @RequestParam("videoTitle") String videoTitle,
+                              @RequestParam("videoDescription") String videoDescription) {
+
+            VideoFile video = new VideoFile();
+            video.setCourseId(courseId);
+            video.setUserId(userId);
+            video.setRoleId(roleId);
+            video.setVideoTitle(videoTitle);
+            video.setVideoDescription(videoDescription);
+            return videoService.saveVideo(video, file);
+
     }
 }

@@ -27,3 +27,5 @@ mybatis:
 logging:
   level:
     sql: info
+upload:
+  dir: C:\Users\fhuur\Documents\Projects\bpr-backend2\TestUploads

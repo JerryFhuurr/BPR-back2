@@ -21,4 +21,11 @@
         FROM Video
         WHERE user_id = #{userId}
     </select>
+
+    <insert id="addVideo" parameterType="com.bpr.bprbackend2.model.VideoFile">
+        INSERT INTO Video (video_id, course_id, user_id, role_id, video_title,
+                           video_description, video_score, video_path, file_url)
+        VALUES (#{videoId}, #{courseId}, #{userId}, #{roleId}, #{videoTitle},
+                #{videoDescription}, #{videoScore}, #{videoPath}, #{fileUrl})
+    </insert>
 </mapper>

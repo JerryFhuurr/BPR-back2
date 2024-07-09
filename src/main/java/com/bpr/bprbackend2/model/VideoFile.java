@@ -11,9 +11,12 @@ import lombok.NoArgsConstructor;
 @Builder
 public class VideoFile {
     private int videoId;
+    private int courseId;
+    private int userId;
+    private int roleId;
+    private float videoScore;
     private String videoTitle;
     private String videoDescription;
     private String videoPath;
-    private String videoUrl;
     private String fileUrl;
 }
