@@ -28,4 +28,8 @@
         VALUES (#{videoId}, #{courseId}, #{userId}, #{roleId}, #{videoTitle},
                 #{videoDescription}, #{videoScore}, #{videoPath}, #{fileUrl})
     </insert>
+
+    <delete id="removeVideo">
+        DELETE FROM Video WHERE video_id = #{videoId}
+    </delete>
 </mapper>

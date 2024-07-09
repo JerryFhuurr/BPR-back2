@@ -10,4 +10,5 @@ public interface VideoService {
     ArrayList<VideoFile> getVideoListByUser(int userId);
     VideoFile getVideo(int videoId);
     String saveVideo(VideoFile video, MultipartFile file);
+    String removeVideo(int videoId);
 }

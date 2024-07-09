@@ -47,4 +47,9 @@ public class VideoController {
             return videoService.saveVideo(video, file);
 
     }
+
+    @DeleteMapping("/remove")
+    public String removeVideo(@RequestParam int videoId) {
+        return videoService.removeVideo(videoId);
+    }
 }

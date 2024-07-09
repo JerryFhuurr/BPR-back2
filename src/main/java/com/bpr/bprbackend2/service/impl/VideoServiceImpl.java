@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -61,6 +62,19 @@ public class VideoServiceImpl implements VideoService {
             } catch (IOException e) {
                 return "Something went wrong " + e.getMessage();
             }
+        }
+    }
+
+    @Override
+    public String removeVideo(int videoId) {
+        VideoFile video = videoMapper.getVideo(videoId);
+        File file = new File(video.getVideoPath());
+        if (file.exists()) {
+            file.delete();
+            videoMapper.removeVideo(videoId);
+            return "Deleted Successfully";
+        } else {
+            return "Cannot find the video file";
         }
     }
 

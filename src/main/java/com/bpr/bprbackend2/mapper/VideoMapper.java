@@ -11,4 +11,5 @@ public interface VideoMapper {
     ArrayList<VideoFile> getVideoListByUser(int userId);
     VideoFile getVideo(int videoId);
     void addVideo(VideoFile videoFile);
+    void removeVideo(int videoId);
 }
