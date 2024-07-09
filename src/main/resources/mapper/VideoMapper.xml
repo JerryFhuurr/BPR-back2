@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpr.bprbackend2.mapper.VideoMapper">
+
+    <select id="getVideoList" resultType="com.bpr.bprbackend2.model.VideoFile">
+        SELECT video_title, video_id
+        FROM Video
+        WHERE course_id = #{courseId}
+    </select>
+
+    <select id="getVideo" resultType="com.bpr.bprbackend2.model.VideoFile">
+        SELECT *
+        FROM Video
+        WHERE video_id = #{videoId}
+    </select>
+
+    <select id="getVideoListByUser" resultType="com.bpr.bprbackend2.model.VideoFile">
+        SELECT video_title, video_id
+        FROM Video
+        WHERE user_id = #{userId}
+    </select>
+</mapper>

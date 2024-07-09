@@ -34,4 +34,5 @@ public class UserController {
     public String updateInfo(@RequestBody User user) {
         return userService.updateUserInfo(user);
     }
+
 }
