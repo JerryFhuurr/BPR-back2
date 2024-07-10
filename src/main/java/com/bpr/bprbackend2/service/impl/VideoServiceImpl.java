@@ -84,6 +84,10 @@ public class VideoServiceImpl implements VideoService {
     public String removeVideo(int videoId) {
         VideoFile video = videoMapper.getVideo(videoId);
         File file = new File(video.getVideoPath());
+        if (video.getFileUrl() != null) {
+            File file2 = new File(video.getFileUrl());
+            file2.delete();
+        }
         if (file.exists()) {
             file.delete();
             videoMapper.removeVideo(videoId);
