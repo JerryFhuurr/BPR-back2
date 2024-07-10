@@ -12,4 +12,5 @@ public interface VideoMapper {
     VideoFile getVideo(int videoId);
     void addVideo(VideoFile videoFile);
     void removeVideo(int videoId);
+    void updateVideoInfo(VideoFile videoFile);
 }

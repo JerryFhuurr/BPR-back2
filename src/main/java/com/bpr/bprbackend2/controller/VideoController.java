@@ -52,4 +52,9 @@ public class VideoController {
     public String removeVideo(@RequestParam int videoId) {
         return videoService.removeVideo(videoId);
     }
+
+    @PutMapping("/update/info")
+    public String updateVideoInfo(@RequestParam int videoId, @RequestParam int userId,  @RequestParam String videoTitle, @RequestParam String videoDescription) {
+        return videoService.updateVideo(videoId,userId, videoTitle, videoDescription);
+    }
 }

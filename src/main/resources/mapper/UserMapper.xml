@@ -40,7 +40,13 @@
         FROM Role r
                  JOIN User u ON r.role_id = u.role_id
         WHERE u.username = #{username};
+    </select>
 
+    <select id="getUserRoleById" resultType="string">
+        SELECT r.role_name
+        FROM Role r
+                 JOIN User u ON r.role_id = u.role_id
+        WHERE u.user_id = #{userId};
     </select>
 
     <update id="updateUserPassword" parameterType="com.bpr.bprbackend2.model.User">

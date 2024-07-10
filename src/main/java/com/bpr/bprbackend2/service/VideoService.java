@@ -11,4 +11,5 @@ public interface VideoService {
     VideoFile getVideo(int videoId);
     String saveVideo(VideoFile video, MultipartFile file);
     String removeVideo(int videoId);
+    String updateVideo(int videoId, int userID, String title, String description);
 }

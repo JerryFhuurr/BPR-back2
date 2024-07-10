@@ -10,6 +10,7 @@ public interface UserMapper {
     User loginGet(String username);
     User getUserInfo(String username);
     String getUserRole(String username);
+    String getUserRoleById(int userId);
     void updateUserPassword(String username, String password);
     ArrayList<String> getUsernames();
     void updateUserInfo(User user);

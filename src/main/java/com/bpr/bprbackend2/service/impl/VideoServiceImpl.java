@@ -1,7 +1,9 @@
 package com.bpr.bprbackend2.service.impl;
 
+import com.bpr.bprbackend2.mapper.UserMapper;
 import com.bpr.bprbackend2.mapper.VideoMapper;
 import com.bpr.bprbackend2.model.VideoFile;
+import com.bpr.bprbackend2.service.UserService;
 import com.bpr.bprbackend2.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +24,8 @@ import java.util.UUID;
 @Service
 public class VideoServiceImpl implements VideoService {
 
+    @Autowired
+    private UserMapper userMapper;
     @Autowired
     private VideoMapper videoMapper;
     @Value("${upload.dir}")
@@ -75,6 +79,19 @@ public class VideoServiceImpl implements VideoService {
             return "Deleted Successfully";
         } else {
             return "Cannot find the video file";
+        }
+    }
+
+    @Override
+    public String updateVideo(int videoId, int userID, String title, String description) {
+        VideoFile oldVideo = videoMapper.getVideo(videoId);
+        if (oldVideo.getUserId() == userID || userMapper.getUserRoleById(userID).equals("admin")) {
+            oldVideo.setVideoTitle(title);
+            oldVideo.setVideoDescription(description);
+            videoMapper.updateVideoInfo(oldVideo);
+            return "Updated Successfully";
+        } else {
+            return "Wrong account, can edit by uploader or admin";
         }
     }
 
