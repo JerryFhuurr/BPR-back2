@@ -31,7 +31,7 @@ public class VideoController {
     }
 
     @PostMapping("/upload/")
-    public String uploadVideo(@RequestParam("file") MultipartFile file,
+    public String uploadVideo(@RequestParam("files") MultipartFile[] files,
                               @RequestParam("courseId") int courseId,
                               @RequestParam("userId") int userId,
                               @RequestParam("roleId") int roleId,
@@ -44,7 +44,7 @@ public class VideoController {
             video.setRoleId(roleId);
             video.setVideoTitle(videoTitle);
             video.setVideoDescription(videoDescription);
-            return videoService.saveVideo(video, file);
+            return videoService.saveVideo(video, files);
 
     }
 

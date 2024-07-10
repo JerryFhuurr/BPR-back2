@@ -9,7 +9,7 @@ public interface VideoService {
     ArrayList<VideoFile> getVideoList(int courseId);
     ArrayList<VideoFile> getVideoListByUser(int userId);
     VideoFile getVideo(int videoId);
-    String saveVideo(VideoFile video, MultipartFile file);
+    String saveVideo(VideoFile video, MultipartFile[] files);
     String removeVideo(int videoId);
     String updateVideo(int videoId, int userID, String title, String description);
 }

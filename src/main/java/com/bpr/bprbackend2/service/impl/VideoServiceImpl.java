@@ -48,21 +48,32 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public String saveVideo(VideoFile video, MultipartFile file) {
+    public String saveVideo(VideoFile video, MultipartFile[] files) {
         if (video.getRoleId() == 3) {
             return "Can only upload files by teacher or admin";
         } else {
             try {
-                String fileName = file.getOriginalFilename();
-                if (fileName != null && fileName.endsWith(".mp4")) {
-                    fileName = fileName.substring(0, fileName.length() - 4);
+                if (files != null && (files.length > 0 && files.length <= 2)) {
+                    for (MultipartFile file : files) {
+                        String fileName = file.getOriginalFilename();
+                        if (fileName != null && fileName.endsWith(".mp4")) {
+                            fileName = fileName.substring(0, fileName.length() - 4);
+                            String fileNameN = fileName + video.getUserId() + System.currentTimeMillis() + ".mp4";
+                            Path filePath = Paths.get(uploadDir, fileNameN);
+                            Files.copy(file.getInputStream(), filePath);
+                            video.setVideoPath(filePath.toString());
+                        } else {
+                            String fileNameN = video.getUserId() + System.currentTimeMillis() +fileName;
+                            Path filePath = Paths.get(uploadDir, fileNameN);
+                            Files.copy(file.getInputStream(), filePath);
+                            video.setFileUrl(filePath.toString());
+                        }
+                    }
+                    videoMapper.addVideo(video);
+                    return "Uploaded successfully";
+                } else {
+                    return "No file provided or too much files provided (Cannot more than 2 files)";
                 }
-                String fileNameN = fileName + video.getUserId() + System.currentTimeMillis() + ".mp4";
-                Path filePath = Paths.get(uploadDir, fileNameN);
-                Files.copy(file.getInputStream(), filePath);
-                video.setVideoPath(filePath.toString());
-                videoMapper.addVideo(video);
-                return "Uploaded successfully";
             } catch (IOException e) {
                 return "Something went wrong " + e.getMessage();
             }
