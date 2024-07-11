@@ -71,7 +71,7 @@ public class VideoController {
      * @功能描述 下载文件:将输入流中的数据循环写入到响应输出流中，而不是一次性读取到内存
      */
     @PostMapping("/downloadLocal")
-    public void downloadLocal(String fileName, HttpServletResponse response) throws IOException {
+    public void downloadLocal(@RequestParam String fileName, HttpServletResponse response) throws IOException {
         //        response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));  // 附件下载
         // 默认格式就是预览，浏览器会根据格式进行判断，如果可以就预览，不可以就下载
 //        response.addHeader("Content-Disposition", "inline;filename=" + URLEncoder.encode(fileName, "UTF-8"));  // 附件预览
