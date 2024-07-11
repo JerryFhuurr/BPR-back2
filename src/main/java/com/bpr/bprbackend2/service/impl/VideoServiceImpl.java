@@ -56,17 +56,19 @@ public class VideoServiceImpl implements VideoService {
                 if (files != null && (files.length > 0 && files.length <= 2)) {
                     for (MultipartFile file : files) {
                         String fileName = file.getOriginalFilename();
-                        if (fileName != null && fileName.endsWith(".mp4")) {
+                        if (fileName != null && (fileName.endsWith(".mp4") || fileName.endsWith(".avi"))) {
                             fileName = fileName.substring(0, fileName.length() - 4);
                             String fileNameN = fileName + video.getUserId() + System.currentTimeMillis() + ".mp4";
                             Path filePath = Paths.get(uploadDir, fileNameN);
                             Files.copy(file.getInputStream(), filePath);
                             video.setVideoPath(filePath.toString());
+                            video.setVideoTitle(fileName);
                         } else {
                             String fileNameN = video.getUserId() + System.currentTimeMillis() +fileName;
                             Path filePath = Paths.get(uploadDir, fileNameN);
                             Files.copy(file.getInputStream(), filePath);
                             video.setFileUrl(filePath.toString());
+                            video.setFileName(fileName);
                         }
                     }
                     videoMapper.addVideo(video);

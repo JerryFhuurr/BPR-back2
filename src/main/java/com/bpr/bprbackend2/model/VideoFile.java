@@ -19,4 +19,6 @@ public class VideoFile {
     private String videoDescription;
     private String videoPath;
     private String fileUrl;
+    private String videoFileName;
+    private String fileName;
 }
