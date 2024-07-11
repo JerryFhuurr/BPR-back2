@@ -13,4 +13,6 @@ public interface VideoMapper {
     void addVideo(VideoFile videoFile);
     void removeVideo(int videoId);
     void updateVideoInfo(VideoFile videoFile);
+    VideoFile getVideoPathByName(String videoFileName);
+    VideoFile getFilePathByName(String fileName);
 }

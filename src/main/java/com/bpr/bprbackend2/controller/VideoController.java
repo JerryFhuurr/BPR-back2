@@ -1,5 +1,6 @@
 package com.bpr.bprbackend2.controller;
 
+import cn.hutool.core.io.FileUtil;
 import com.bpr.bprbackend2.model.VideoFile;
 import com.bpr.bprbackend2.service.VideoService;
 import jakarta.servlet.ServletOutputStream;
@@ -52,7 +53,6 @@ public class VideoController {
             video.setVideoTitle(videoTitle);
             video.setVideoDescription(videoDescription);
             return videoService.saveVideo(video, files);
-
     }
 
     @DeleteMapping("/remove")
@@ -70,22 +70,25 @@ public class VideoController {
      * @param response
      * @功能描述 下载文件:将输入流中的数据循环写入到响应输出流中，而不是一次性读取到内存
      */
-    @RequestMapping("/downloadLocal")
-    public void downloadLocal(String path, HttpServletResponse response) throws IOException {
-        // 读到流中
-        InputStream inputStream = new FileInputStream(path);// 文件的存放路径
-        response.reset();
-        response.setContentType("multipart/form-data");
-        String filename = new File(path).getName();
-        response.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
-        ServletOutputStream outputStream = response.getOutputStream();
-        byte[] b = new byte[1024];
-        int len;
-        //从输入流中读取一定数量的字节，并将其存储在缓冲区字节数组中，读到末尾返回-1
-        while ((len = inputStream.read(b)) > 0) {
-            outputStream.write(b, 0, len);
+    @PostMapping("/downloadLocal")
+    public void downloadLocal(String fileName, HttpServletResponse response) throws IOException {
+        //        response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));  // 附件下载
+        // 默认格式就是预览，浏览器会根据格式进行判断，如果可以就预览，不可以就下载
+//        response.addHeader("Content-Disposition", "inline;filename=" + URLEncoder.encode(fileName, "UTF-8"));  // 附件预览
+        String filePath = "";
+        if (fileName.contains("Video_")) {
+            filePath = videoService.getVideoPathByName(fileName);
+        } else if (fileName.contains("File_")) {
+            filePath = videoService.getFilePathByName(fileName);
         }
-        inputStream.close();
+        if(!FileUtil.exist(filePath)){
+            return;
+        }
+        byte[] bytes = FileUtil.readBytes(filePath);
+        ServletOutputStream outputStream = response.getOutputStream();
+        outputStream.write(bytes);    // 数组是一个字节数组，也就是文件的字节流数组
+        outputStream.flush();
+        outputStream.close();
     }
 
 }

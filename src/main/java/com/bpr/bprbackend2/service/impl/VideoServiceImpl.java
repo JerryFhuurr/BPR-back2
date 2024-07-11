@@ -62,13 +62,15 @@ public class VideoServiceImpl implements VideoService {
                             Path filePath = Paths.get(uploadDir, fileNameN);
                             Files.copy(file.getInputStream(), filePath);
                             video.setVideoPath(filePath.toString());
-                            video.setVideoTitle(fileName);
+                            video.setVideoFileName("Video_" + fileName);
+                            video.setVideoFileDownload("http://" + "192.168.0.150:8080" + "/video/downloadLocal?fileName=" + fileName);
                         } else {
                             String fileNameN = video.getUserId() + System.currentTimeMillis() +fileName;
                             Path filePath = Paths.get(uploadDir, fileNameN);
                             Files.copy(file.getInputStream(), filePath);
                             video.setFileUrl(filePath.toString());
-                            video.setFileName(fileName);
+                            video.setFileName("File_" + fileName);
+                            video.setFileNameDownload("http://" + "192.168.0.150:8080" + "/video/downloadLocal?fileName=" + fileName);
                         }
                     }
                     videoMapper.addVideo(video);
@@ -110,6 +112,18 @@ public class VideoServiceImpl implements VideoService {
         } else {
             return "Wrong account, can edit by uploader or admin";
         }
+    }
+
+    @Override
+    public String getVideoPathByName(String videoFileName) {
+        VideoFile vf = videoMapper.getVideoPathByName(videoFileName);
+        return vf.getVideoPath();
+    }
+
+    @Override
+    public String getFilePathByName(String fileName) {
+        VideoFile vf = videoMapper.getFilePathByName(fileName);
+        return vf.getFileUrl();
     }
 
 

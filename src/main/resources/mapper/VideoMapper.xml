@@ -25,10 +25,10 @@
     <insert id="addVideo" parameterType="com.bpr.bprbackend2.model.VideoFile">
         INSERT INTO Video (video_id, course_id, user_id, role_id, video_title,
                            video_description, video_score, video_path, file_url,
-                           video_file_name, file_name)
+                           video_file_name, file_name, video_file_download, file_name_download)
         VALUES (#{videoId}, #{courseId}, #{userId}, #{roleId}, #{videoTitle},
                 #{videoDescription}, #{videoScore}, #{videoPath}, #{fileUrl},
-                #{videoFileName}, #{fileName})
+                #{videoFileName}, #{fileName}, #{videoFileDownload}, #{fileNameDownload})
     </insert>
 
     <delete id="removeVideo">
@@ -40,4 +40,16 @@
         SET video_title = #{videoTitle}, video_description = #{videoDescription}
         WHERE video_id = #{videoId};
     </update>
+
+    <select id="getVideoPathByName" resultType="com.bpr.bprbackend2.model.VideoFile">
+        SELECT Video.video_path
+        FROM Video
+        WHERE video_file_name = #{videoFileName}
+    </select>
+
+    <select id="getFilePathByName" resultType="com.bpr.bprbackend2.model.VideoFile">
+        SELECT Video.file_url
+        FROM Video
+        WHERE file_name = #{fileName}
+    </select>
 </mapper>

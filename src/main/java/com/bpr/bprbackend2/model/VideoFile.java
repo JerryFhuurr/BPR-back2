@@ -21,4 +21,6 @@ public class VideoFile {
     private String fileUrl;
     private String videoFileName;
     private String fileName;
+    private String videoFileDownload;
+    private String fileNameDownload;
 }
