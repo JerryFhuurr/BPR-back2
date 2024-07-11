@@ -4,15 +4,15 @@ import cn.hutool.core.io.FileUtil;
 import com.bpr.bprbackend2.model.VideoFile;
 import com.bpr.bprbackend2.service.VideoService;
 import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
@@ -66,11 +66,11 @@ public class VideoController {
     }
 
     /**
-     * @param path     指想要下载的文件的路径
+     * @param fileName     指想要下载的文件的路径
      * @param response
      * @功能描述 下载文件:将输入流中的数据循环写入到响应输出流中，而不是一次性读取到内存
      */
-    @PostMapping("/downloadLocal")
+    @GetMapping("/downloadLocal")
     public void downloadLocal(@RequestParam String fileName, HttpServletResponse response) throws IOException {
         //        response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));  // 附件下载
         // 默认格式就是预览，浏览器会根据格式进行判断，如果可以就预览，不可以就下载
