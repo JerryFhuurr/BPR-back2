@@ -52,4 +52,10 @@
         FROM Video
         WHERE file_name = #{fileName}
     </select>
+
+    <update id="updateVideoScore" parameterType="com.bpr.bprbackend2.model.VideoFile">
+        UPDATE Video
+        SET video_score = #{videoScore}
+        WHERE video_id = #{videoId}
+    </update>
 </mapper>

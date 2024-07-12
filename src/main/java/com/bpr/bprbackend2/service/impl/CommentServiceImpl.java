@@ -1,6 +1,5 @@
 package com.bpr.bprbackend2.service.impl;
 
-import cn.hutool.core.date.DateTime;
 import com.bpr.bprbackend2.mapper.CommentMapper;
 import com.bpr.bprbackend2.mapper.UserMapper;
 import com.bpr.bprbackend2.mapper.VideoMapper;
@@ -10,7 +9,6 @@ import com.bpr.bprbackend2.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 @Service
@@ -39,6 +37,7 @@ public class CommentServiceImpl implements CommentService {
         ArrayList<Comment> comments = commentMapper.getCommentList(videoFile.getVideoId());
         for (Comment c : comments) {
             if (c.getSenderId() == comment.getSenderId()) {
+                updateRemoveScore(1, comment.getCommentScore(), c.getCommentScore(), videoFile.getVideoId());
                 commentMapper.updateComment(comment);
                 return "Comment updated";
             }
@@ -47,7 +46,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setCourseId(videoFile.getCourseId());
         comment.setRoleId(videoFile.getRoleId());
         comment.setSenderName(senderName);
-
+        addVideoScore(comment.getCommentScore(), videoFile.getVideoId());
         commentMapper.addComment(comment);
         return "Comment added";
     }
@@ -63,8 +62,37 @@ public class CommentServiceImpl implements CommentService {
         if (comment == null) {
             return "Cannot find comment";
         } else {
+            updateRemoveScore(2, 0, comment.getCommentScore(), comment.getVideoId());
             commentMapper.removeComment(commentId);
             return "Comment removed";
         }
     }
+
+    private void addVideoScore(float score, int videoId) {
+        ArrayList<Comment> comments = commentMapper.getCommentList(videoId);
+        VideoFile videoFile = videoMapper.getVideo(videoId);
+        int commentSize = comments.size();
+        float currentScore = videoFile.getVideoScore();
+        float newScore = 0;
+        newScore = (currentScore * commentSize + score) / (commentSize + 1);
+        videoFile.setVideoScore(newScore);
+        videoMapper.updateVideoScore(videoFile);
+    }
+
+    private void updateRemoveScore(int type, float score, float oldScore, int videoId) {
+        ArrayList<Comment> comments = commentMapper.getCommentList(videoId);
+        VideoFile videoFile = videoMapper.getVideo(videoId);
+        int commentSize = comments.size();
+        float currentScore = videoFile.getVideoScore();
+        float newScore = 0;
+        switch (type) {
+            case 1: // edit
+                newScore = (currentScore * commentSize - oldScore + score) / (commentSize);
+            case 2: // remove
+                newScore = (currentScore * commentSize - oldScore) / (commentSize - 1);
+        }
+        videoFile.setVideoScore(newScore);
+        videoMapper.updateVideoScore(videoFile);
+    }
 }
+

@@ -15,4 +15,5 @@ public interface VideoMapper {
     void updateVideoInfo(VideoFile videoFile);
     VideoFile getVideoPathByName(String videoFileName);
     VideoFile getFilePathByName(String fileName);
+    void updateVideoScore(VideoFile videoFile);
 }
