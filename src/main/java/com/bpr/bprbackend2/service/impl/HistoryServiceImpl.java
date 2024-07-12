@@ -17,14 +17,24 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public String addHistory(History history) {
         ArrayList<History> historyList = historyMapper.getHistoryList(history.getWatcherId());
-        history.setWatchTime(System.currentTimeMillis());
+
+        System.out.println("size:" + historyList.size());
+        int count = 0;
+        History newHistory = new History();
         for (History h : historyList) {
             if (h.getVideoId() == history.getVideoId() && h.getWatcherId() == history.getWatcherId()) {
-                historyMapper.updateHistory(history);
+                count++;
+                newHistory = h;
             }
         }
 
-        historyMapper.addHistory(history);
+        if (count == 0) {
+            history.setWatchTime(System.currentTimeMillis());
+            historyMapper.addHistory(history);
+        } else {
+            newHistory.setWatchTime(System.currentTimeMillis());
+            historyMapper.updateHistory(newHistory);
+        }
         return "History added";
     }
 

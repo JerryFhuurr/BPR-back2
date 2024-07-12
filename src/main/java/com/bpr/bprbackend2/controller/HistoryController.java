@@ -19,8 +19,8 @@ public class HistoryController {
     }
 
     @GetMapping("/get")
-    public ArrayList<History> getHistory(@RequestParam int id) {
-        return historyService.getHistoryList(id);
+    public ArrayList<History> getHistory(@RequestParam int watcherId) {
+        return historyService.getHistoryList(watcherId);
     }
 
     @DeleteMapping("/delete")

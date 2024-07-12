@@ -11,10 +11,12 @@ import lombok.NoArgsConstructor;
 @Builder
 public class History {
     private int hId;
+    // ↓ video info
     private int userId;
     private int courseId;
     private int videoId;
     private int roleId;
+    // ↑
     private int watcherId;
     private long watchTime;
 }
