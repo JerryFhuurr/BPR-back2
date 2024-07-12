@@ -18,6 +18,10 @@
         DELETE FROM Comment WHERE comment_id=#{commentId}
     </delete>
 
+    <delete id="removeCommentByVideo">
+        DELETE FROM Comment WHERE video_id=#{videoId}
+    </delete>
+
     <select id="getAComment" resultType="com.bpr.bprbackend2.model.Comment">
         SELECT *
         FROM Comment
