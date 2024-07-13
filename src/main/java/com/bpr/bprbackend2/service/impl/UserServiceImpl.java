@@ -131,5 +131,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public String updatePasswordAdmin(String username, String newPassword) {
+        if (newPassword.length() < 6) {
+            return "Password must be at least 6 characters";
+        } else {
+            mapper.updateUserPassword(username, newPassword);
+            return "Password updated successfully";
+        }
+    }
+
 
 }

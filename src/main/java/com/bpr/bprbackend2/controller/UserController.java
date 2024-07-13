@@ -1,6 +1,7 @@
 package com.bpr.bprbackend2.controller;
 
 import com.bpr.bprbackend2.model.User;
+import com.bpr.bprbackend2.model.UserTestParam;
 import com.bpr.bprbackend2.model.VideoFile;
 import com.bpr.bprbackend2.service.UserService;
 import com.bpr.bprbackend2.service.VideoService;
@@ -55,13 +56,13 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public String add(@RequestParam (value = "courses" )int[] courses,
-                      @RequestParam String username, @RequestParam String password, @RequestParam String role) {
+    public String add(@RequestBody UserTestParam userTestParam) {
+        System.out.println(userTestParam);
         User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setRole(role);
-        switch (role) {
+        user.setUsername(userTestParam.getUsername());
+        user.setPassword(userTestParam.getPassword());
+        user.setRole(userTestParam.getRole());
+        switch (userTestParam.getRole()) {
             case "admin":
                 user.setRoleId(1);
             case "teacher":
@@ -69,7 +70,16 @@ public class UserController {
             case "student":
                 user.setRoleId(3);
         }
-        return userService.addUser(user, courses);
+        return userService.addUser(user, userTestParam.getCourses());
     }
 
+    @GetMapping("/get/all")
+    public ArrayList<User> getAll() {
+        return userService.getAll();
+    }
+
+    @PutMapping("/update/password/admin")
+    public String updatePasswordAdmin(@RequestParam String username, @RequestParam String password) {
+        return userService.updatePasswordAdmin(username, password);
+    }
 }

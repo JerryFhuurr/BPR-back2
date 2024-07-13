@@ -18,4 +18,9 @@ public class CourseServiceImpl implements CourseService {
     public ArrayList<Course> getCourseByUser(String username) {
         return courseMapper.getCourseByUser(username);
     }
+
+    @Override
+    public ArrayList<Course> getCourseList() {
+        return courseMapper.getCourseList();
+    }
 }

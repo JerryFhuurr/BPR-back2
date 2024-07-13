@@ -8,4 +8,5 @@ import java.util.ArrayList;
 @Mapper
 public interface CourseMapper {
     ArrayList<Course> getCourseByUser(String username);
+    ArrayList<Course> getCourseList();
 }

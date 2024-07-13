@@ -22,4 +22,9 @@ public class CourseController {
     public ArrayList<Course> getCourseByUser(@RequestParam String username) {
         return courseService.getCourseByUser(username);
     }
+
+    @GetMapping("/get/all")
+    public ArrayList<Course> getAllCourse() {
+        return courseService.getCourseList();
+    }
 }

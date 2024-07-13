@@ -12,4 +12,5 @@ public interface UserService {
     ArrayList<User> getAll();
     String removeUser(int id);
     String addUser(User user, int[] courses);
+    String updatePasswordAdmin(String username, String newPassword);
 }

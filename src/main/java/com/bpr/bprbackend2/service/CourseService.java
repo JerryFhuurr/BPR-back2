@@ -7,4 +7,5 @@ import java.util.ArrayList;
 
 public interface CourseService {
     ArrayList<Course> getCourseByUser(String username);
+    ArrayList<Course> getCourseList();
 }

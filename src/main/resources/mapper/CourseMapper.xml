@@ -11,4 +11,9 @@
                  JOIN User U ON CU.user_id = U.user_id
         WHERE U.username = #{username}
     </select>
+
+    <select id="getCourseList" resultType="com.bpr.bprbackend2.model.Course">
+        SELECT *
+        FROM Course
+    </select>
 </mapper>
