@@ -11,4 +11,5 @@ public interface UserService {
     String updateUserInfo(User user);
     ArrayList<User> getAll();
     String removeUser(int id);
+    String addUser(User user, int[] courses);
 }

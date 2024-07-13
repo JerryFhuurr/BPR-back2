@@ -14,6 +14,7 @@ import java.util.Date;
 @Builder
 public class User {
     private int userId;
+    private int roleId;
     private String username;
     private String password;
     private String email;

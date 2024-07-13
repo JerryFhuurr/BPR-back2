@@ -49,6 +49,13 @@
         WHERE u.user_id = #{userId};
     </select>
 
+    <select id="getUserRoleById2" resultType="int">
+        SELECT r.role_id
+        FROM Role r
+                 JOIN User u ON r.role_id = u.role_id
+        WHERE u.user_id = #{userId};
+    </select>
+
     <update id="updateUserPassword" parameterType="com.bpr.bprbackend2.model.User">
         UPDATE User
         <set>
@@ -86,4 +93,10 @@
         DELETE FROM CourseUser WHERE user_id = #{userId}
     </delete>
 
+    <insert id="addUser" parameterType="com.bpr.bprbackend2.model.User">
+        INSERT INTO User  (role_id, username, password, email, phone, birth) VALUES (#{roleId}, #{username}, #{password}, null, null, null)
+    </insert>
+    <insert id="addUserCourse">
+        INSERT INTO CourseUser (course_id, user_id, role_id) VALUES (#{courseId}, #{userId}, #{roleId})
+    </insert>
 </mapper>

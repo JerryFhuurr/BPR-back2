@@ -11,6 +11,7 @@ public interface UserMapper {
     User getUserInfo(String username);
     String getUserRole(String username);
     String getUserRoleById(int userId);
+    int getUserRoleById2(int userId);
     void updateUserPassword(String username, String password);
     ArrayList<String> getUsernames();
     void updateUserInfo(User user);
@@ -18,4 +19,6 @@ public interface UserMapper {
     ArrayList<User> getAll();
     void removeUser(int id);
     void removeUserCourse(int id);
+    void addUser(User user);
+    void addUserCourse(int courseId, int userId, int roleId);
 }

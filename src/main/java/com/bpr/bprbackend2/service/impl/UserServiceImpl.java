@@ -21,8 +21,6 @@ public class UserServiceImpl implements UserService {
     private CommentMapper commentMapper;
     @Autowired
     private HistoryMapper historyMapper;
-    @Autowired
-    private VideoMapper videoMapper;
 
     @Override
     public String loginGet(String username, String password) {
@@ -101,5 +99,37 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+
+    @Override
+    public String addUser(User user, int[] courses) {
+        if (user.getUsername() == null || user.getUsername().equals("")) {
+            return "Username is empty";
+        } else {
+            if (user.getPassword() == null || user.getPassword().equals("") || user.getPassword().length() < 6) {
+                return "Password must be at least 6 characters";
+            } else {
+                if (courses.length == 0) {
+                    return "Course list is empty";
+                } else {
+                    ArrayList<User> users = mapper.getAll();
+
+                    for (User user1 : users) {
+                        if (user1.getUsername().equals(user.getUsername())) {
+                            return "Username already in use";
+                        }
+                    }
+                    mapper.addUser(user);
+                    for (Integer course : courses) {
+                        User userAdd = mapper.getUserInfo(user.getUsername());
+                        int roleId = mapper.getUserRoleById2(userAdd.getUserId());
+                        System.out.println("id:" + course + "," + userAdd.getUserId() + "," + roleId);
+                        mapper.addUserCourse(course, userAdd.getUserId(), roleId);
+                    }
+                    return "User successfully added";
+                }
+            }
+        }
+    }
+
 
 }

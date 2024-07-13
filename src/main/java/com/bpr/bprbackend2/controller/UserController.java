@@ -54,4 +54,22 @@ public class UserController {
         return userService.removeUser(id);
     }
 
+    @PostMapping("/add")
+    public String add(@RequestParam (value = "courses" )int[] courses,
+                      @RequestParam String username, @RequestParam String password, @RequestParam String role) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setRole(role);
+        switch (role) {
+            case "admin":
+                user.setRoleId(1);
+            case "teacher":
+                user.setRoleId(2);
+            case "student":
+                user.setRoleId(3);
+        }
+        return userService.addUser(user, courses);
+    }
+
 }
