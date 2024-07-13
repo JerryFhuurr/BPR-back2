@@ -18,6 +18,10 @@
         DELETE FROM History WHERE h_id = #{hId}
     </delete>
 
+    <delete id="removeHistoryByUser">
+        DELETE FROM History WHERE watcher_id = #{watcherId}
+    </delete>
+
     <update id="updateHistory" parameterType="com.bpr.bprbackend2.model.History">
         UPDATE History
         SET watch_time = #{watchTime}

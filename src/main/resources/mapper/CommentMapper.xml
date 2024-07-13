@@ -14,6 +14,12 @@
         WHERE video_id=#{videoId}
     </select>
 
+    <select id="getCommentListByUser" resultType="com.bpr.bprbackend2.model.Comment">
+        SELECT *
+        FROM Comment
+        WHERE sender_id=#{senderId}
+    </select>
+
     <delete id="removeComment">
         DELETE FROM Comment WHERE comment_id=#{commentId}
     </delete>
@@ -33,4 +39,5 @@
         SET comment_text=#{commentText}, comment_time=#{commentTime}, comment_score=#{commentScore}
         WHERE sender_id=#{senderId}
     </update>
+
 </mapper>

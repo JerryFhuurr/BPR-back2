@@ -10,5 +10,6 @@ public interface HistoryMapper {
     void addHistory(History history);
     ArrayList<History> getHistoryList(int watcherId);
     void removeHistory(int hId);
+    void removeHistoryByUser(int watcherId);
     void updateHistory(History history);
 }

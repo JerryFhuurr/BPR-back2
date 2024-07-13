@@ -58,4 +58,5 @@
         SET video_score = #{videoScore}
         WHERE video_id = #{videoId}
     </update>
+
 </mapper>

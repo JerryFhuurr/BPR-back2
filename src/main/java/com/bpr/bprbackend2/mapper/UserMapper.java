@@ -15,4 +15,7 @@ public interface UserMapper {
     ArrayList<String> getUsernames();
     void updateUserInfo(User user);
     User getUserInfoByUserId(int id);
+    ArrayList<User> getAll();
+    void removeUser(int id);
+    void removeUserCourse(int id);
 }

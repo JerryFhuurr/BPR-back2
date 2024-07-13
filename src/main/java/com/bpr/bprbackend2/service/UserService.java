@@ -9,4 +9,6 @@ public interface UserService {
     User getUserInfo(String username);
     String updateUserPassword(String username, String newPassword, String oldPassword);
     String updateUserInfo(User user);
+    ArrayList<User> getAll();
+    String removeUser(int id);
 }

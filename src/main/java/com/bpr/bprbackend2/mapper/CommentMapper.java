@@ -9,8 +9,10 @@ import java.util.ArrayList;
 public interface CommentMapper {
     void addComment(Comment comment);
     ArrayList<Comment> getCommentList(int videoId);
+    ArrayList<Comment> getCommentListByUser(int userId);
     void removeComment(int commentId);
     Comment getAComment(int commentId);
     void updateComment(Comment comment);
     void removeCommentByVideo(int videoId);
+    void updateCommentToET(Comment comment);
 }

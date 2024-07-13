@@ -1,7 +1,12 @@
 package com.bpr.bprbackend2.service.impl;
 
+import com.bpr.bprbackend2.mapper.CommentMapper;
+import com.bpr.bprbackend2.mapper.HistoryMapper;
 import com.bpr.bprbackend2.mapper.UserMapper;
+import com.bpr.bprbackend2.mapper.VideoMapper;
+import com.bpr.bprbackend2.model.Comment;
 import com.bpr.bprbackend2.model.User;
+import com.bpr.bprbackend2.model.VideoFile;
 import com.bpr.bprbackend2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +17,12 @@ import java.util.ArrayList;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper mapper;
+    @Autowired
+    private CommentMapper commentMapper;
+    @Autowired
+    private HistoryMapper historyMapper;
+    @Autowired
+    private VideoMapper videoMapper;
 
     @Override
     public String loginGet(String username, String password) {
@@ -61,6 +72,32 @@ public class UserServiceImpl implements UserService {
                 mapper.updateUserInfo(user);
                 return "User successfully updated";
             } else return "Username already in use";
+        }
+
+    }
+
+    @Override
+    public ArrayList<User> getAll() {
+        return mapper.getAll();
+    }
+
+    @Override
+    public String removeUser(int id) {
+        try {
+            historyMapper.removeHistoryByUser(id);
+            if (commentMapper.getCommentListByUser(id).size() != 0) {
+                ArrayList<Comment> comments = commentMapper.getCommentListByUser(id);
+                for (Comment comment : comments) {
+                    commentMapper.removeComment(comment.getCommentId());
+                }
+            }
+            mapper.removeUserCourse(id);
+            mapper.removeUser(id);
+
+            return "User successfully removed";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return e.getMessage();
         }
 
     }

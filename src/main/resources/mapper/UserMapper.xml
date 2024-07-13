@@ -74,4 +74,16 @@
         FROM User
     </select>
 
+    <select id="getAll" resultMap="userResult">
+        SELECT *
+        FROM User
+    </select>
+
+    <delete id="removeUser" parameterType="com.bpr.bprbackend2.model.User">
+        DELETE FROM User WHERE user_id = #{userId}
+    </delete>
+    <delete id="removeUserCourse" parameterType="com.bpr.bprbackend2.model.User">
+        DELETE FROM CourseUser WHERE user_id = #{userId}
+    </delete>
+
 </mapper>
