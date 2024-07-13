@@ -1,6 +1,8 @@
 package com.bpr.bprbackend2.service.impl;
 
 import com.bpr.bprbackend2.mapper.HistoryMapper;
+import com.bpr.bprbackend2.mapper.UserMapper;
+import com.bpr.bprbackend2.mapper.VideoMapper;
 import com.bpr.bprbackend2.model.History;
 import com.bpr.bprbackend2.service.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,10 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Autowired
     private HistoryMapper historyMapper;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private VideoMapper videoMapper;
 
     @Override
     public String addHistory(History history) {
@@ -40,7 +46,12 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public ArrayList<History> getHistoryList(int watcherId) {
-        return historyMapper.getHistoryList(watcherId);
+        ArrayList<History> histories = historyMapper.getHistoryList(watcherId);
+        for (History h : histories) {
+            h.setUpName(userMapper.getUserInfoByUserId(h.getUserId()).getUsername());
+            h.setVideoTitle(videoMapper.getVideo(h.getVideoId()).getVideoTitle());
+        }
+        return histories;
     }
 
     @Override

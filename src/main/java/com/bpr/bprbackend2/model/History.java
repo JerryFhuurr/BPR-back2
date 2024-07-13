@@ -19,4 +19,6 @@ public class History {
     // ↑
     private int watcherId;
     private long watchTime;
+    private String videoTitle;
+    private String upName;
 }
