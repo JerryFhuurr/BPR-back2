@@ -1,5 +1,6 @@
 package com.bpr.bprbackend2.service.impl;
 
+import com.bpr.bprbackend2.hanlders.UriHandler;
 import com.bpr.bprbackend2.mapper.CommentMapper;
 import com.bpr.bprbackend2.mapper.UserMapper;
 import com.bpr.bprbackend2.mapper.VideoMapper;
@@ -66,14 +67,14 @@ public class VideoServiceImpl implements VideoService {
                             Files.copy(file.getInputStream(), filePath);
                             video.setVideoPath(filePath.toString());
                             video.setVideoFileName("Video_" + fileName);
-                            video.setVideoFileDownload("http://" + "192.168.0.150:8080" + "/video/downloadLocal?fileName=" + "Video_" + fileName);
+                            video.setVideoFileDownload(UriHandler.remoteBaseUri + "/video/downloadLocal?fileName=" + "Video_" + fileName);
                         } else {
                             String fileNameN = video.getUserId() + System.currentTimeMillis() +fileName;
                             Path filePath = Paths.get(uploadDir, fileNameN);
                             Files.copy(file.getInputStream(), filePath);
                             video.setFileUrl(filePath.toString());
                             video.setFileName("File_" + fileName);
-                            video.setFileNameDownload("http://" + "192.168.0.150:8080" + "/video/downloadLocal?fileName=" + "File_" + fileName);
+                            video.setFileNameDownload(UriHandler.remoteBaseUri + "/video/downloadLocal?fileName=" + "File_" + fileName);
                         }
                     }
                     videoMapper.addVideo(video);
