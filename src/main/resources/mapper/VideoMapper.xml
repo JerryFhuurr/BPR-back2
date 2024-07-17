@@ -25,10 +25,12 @@
     <insert id="addVideo" parameterType="com.bpr.bprbackend2.model.VideoFile">
         INSERT INTO Video (video_id, course_id, user_id, role_id, video_title,
                            video_description, video_score, video_path, file_url,
-                           video_file_name, file_name, video_file_download, file_name_download)
+                           video_file_name, file_name, video_file_download, file_name_download,
+                           video_size, file_size)
         VALUES (#{videoId}, #{courseId}, #{userId}, #{roleId}, #{videoTitle},
                 #{videoDescription}, #{videoScore}, #{videoPath}, #{fileUrl},
-                #{videoFileName}, #{fileName}, #{videoFileDownload}, #{fileNameDownload})
+                #{videoFileName}, #{fileName}, #{videoFileDownload}, #{fileNameDownload},
+                #{videoSize}, #{fileSize})
     </insert>
 
     <delete id="removeVideo">

@@ -23,4 +23,6 @@ public class VideoFile {
     private String fileName;
     private String videoFileDownload;
     private String fileNameDownload;
+    private long videoSize;
+    private long fileSize;
 }

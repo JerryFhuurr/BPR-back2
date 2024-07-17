@@ -68,6 +68,7 @@ public class VideoServiceImpl implements VideoService {
                             video.setVideoPath(filePath.toString());
                             video.setVideoFileName("Video_" + fileName);
                             video.setVideoFileDownload(UriHandler.remoteBaseUri + "/video/downloadLocal?fileName=" + "Video_" + fileName);
+                            video.setVideoSize(file.getSize());
                         } else {
                             String fileNameN = video.getUserId() + System.currentTimeMillis() +fileName;
                             Path filePath = Paths.get(uploadDir, fileNameN);
@@ -75,6 +76,7 @@ public class VideoServiceImpl implements VideoService {
                             video.setFileUrl(filePath.toString());
                             video.setFileName("File_" + fileName);
                             video.setFileNameDownload(UriHandler.remoteBaseUri + "/video/downloadLocal?fileName=" + "File_" + fileName);
+                            video.setFileSize(file.getSize());
                         }
                     }
                     videoMapper.addVideo(video);
