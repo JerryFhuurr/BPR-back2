@@ -1,5 +1,6 @@
 package com.bpr.bprbackend2.service.impl;
 
+import com.bpr.bprbackend2.hanlders.MD5Utils;
 import com.bpr.bprbackend2.mapper.CommentMapper;
 import com.bpr.bprbackend2.mapper.HistoryMapper;
 import com.bpr.bprbackend2.mapper.UserMapper;
@@ -26,7 +27,8 @@ public class UserServiceImpl implements UserService {
     public String loginGet(String username, String password) {
         User userGet = mapper.loginGet(username);
         if (userGet != null) {
-            if (userGet.getPassword().equals(password)) {
+            boolean passVerify = MD5Utils.verifySaltPassword(password, userGet.getPassword());
+            if (passVerify) {
                 return "Login successful";
             } else return "Login failed - password does not match";
         } else return "Login failed - username is incorrect";
@@ -43,12 +45,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public String updateUserPassword(String username, String newPassword, String oldPassword) {
         String currentPassword = mapper.loginGet(username).getPassword();
-        if (!currentPassword.equals(oldPassword)) {
+        boolean passVerify = MD5Utils.verifySaltPassword(oldPassword, currentPassword);
+        if (!passVerify) {
             return "Password does not match";
         } else if (newPassword.length() < 6) {
             return "Password must be at least 6 characters";
         } else {
-            mapper.updateUserPassword(username, newPassword);
+            mapper.updateUserPassword(username,
+                    MD5Utils.generateSaltPassword(newPassword));
             return "Password updated successfully";
         }
     }
@@ -108,6 +112,8 @@ public class UserServiceImpl implements UserService {
             if (user.getPassword() == null || user.getPassword().equals("") || user.getPassword().length() < 6) {
                 return "Password must be at least 6 characters";
             } else {
+                user.setPassword(MD5Utils.generateSaltPassword(user.getPassword()));
+
                 if (courses.length == 0) {
                     return "Course list is empty";
                 } else {
