@@ -14,5 +14,4 @@ public interface CommentMapper {
     Comment getAComment(int commentId);
     void updateComment(Comment comment);
     void removeCommentByVideo(int videoId);
-    void updateCommentToET(Comment comment);
 }

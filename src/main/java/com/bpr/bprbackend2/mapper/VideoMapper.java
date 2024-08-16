@@ -16,5 +16,4 @@ public interface VideoMapper {
     VideoFile getVideoPathByName(String videoFileName);
     VideoFile getFilePathByName(String fileName);
     void updateVideoScore(VideoFile videoFile);
-    void updateUploaderToET(VideoFile videoFile);
 }
