@@ -13,7 +13,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/res")
+@RequestMapping("/video")
 public class VideoController {
 
     @Autowired
