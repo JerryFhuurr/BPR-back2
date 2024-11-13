@@ -2,7 +2,7 @@ package com.bpr.bprbackend2.controller;
 
 import com.bpr.bprbackend2.model.User;
 import com.bpr.bprbackend2.model.UserTestParam;
-import com.bpr.bprbackend2.model.VideoFile;
+import com.bpr.bprbackend2.model.Resource;
 import com.bpr.bprbackend2.service.UserService;
 import com.bpr.bprbackend2.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +45,10 @@ public class UserController {
 
     @DeleteMapping("/remove")
     public String remove(@RequestParam int id) {
-        ArrayList<VideoFile> videoFiles = videoService.getVideoListByUser(id);
-        if (videoFiles.size() > 0) {
-            for (VideoFile videoFile : videoFiles) {
-                videoService.removeVideo(videoFile.getVideoId());
+        ArrayList<Resource> resources = videoService.getResListByUser(id);
+        if (resources.size() > 0) {
+            for (Resource resource : resources) {
+                videoService.removeRes(resource.getResId());
             }
         }
 
@@ -62,7 +62,7 @@ public class UserController {
         user.setUsername(userTestParam.getUsername());
         user.setPassword(userTestParam.getPassword());
         user.setRole(userTestParam.getRole());
-        switch (userTestParam.getRole()) {
+        switch (user.getRole()) {
             case "admin":
                 user.setRoleId(1);
             case "teacher":

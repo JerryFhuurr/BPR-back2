@@ -1,41 +1,37 @@
 package com.bpr.bprbackend2.controller;
 
 import cn.hutool.core.io.FileUtil;
-import com.bpr.bprbackend2.model.VideoFile;
+import com.bpr.bprbackend2.model.Resource;
 import com.bpr.bprbackend2.service.VideoService;
 import jakarta.servlet.ServletOutputStream;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/video")
+@RequestMapping("/res")
 public class VideoController {
 
     @Autowired
     private VideoService videoService;
 
     @GetMapping("/get/list")
-    public ArrayList<VideoFile> getList(@RequestParam int courseId) {
-        return videoService.getVideoList(courseId);
+    public ArrayList<Resource> getList(@RequestParam int courseId) {
+        return videoService.getResList(courseId);
     }
 
     @GetMapping("/get")
-    public VideoFile getVideo(@RequestParam int videoId) {
-        return videoService.getVideo(videoId);
+    public Resource getVideo(@RequestParam int resId) {
+        return videoService.getRes(resId);
     }
 
     @GetMapping("get/list/user")
-    public ArrayList<VideoFile> getListUser(@RequestParam int userId) {
-        return videoService.getVideoListByUser(userId);
+    public ArrayList<Resource> getListUser(@RequestParam int userId) {
+        return videoService.getResListByUser(userId);
     }
 
     @PostMapping("/upload/")
@@ -43,26 +39,27 @@ public class VideoController {
                               @RequestParam("courseId") int courseId,
                               @RequestParam("userId") int userId,
                               @RequestParam("roleId") int roleId,
-                              @RequestParam("videoTitle") String videoTitle,
-                              @RequestParam("videoDescription") String videoDescription) {
+                              @RequestParam("videoTitle") String resTitle,
+                              @RequestParam("videoDescription") String resDescription) {
 
-            VideoFile video = new VideoFile();
-            video.setCourseId(courseId);
-            video.setUserId(userId);
-            video.setRoleId(roleId);
-            video.setVideoTitle(videoTitle);
-            video.setVideoDescription(videoDescription);
-            return videoService.saveVideo(video, files);
+            Resource res = new Resource();
+            res.setCourseId(courseId);
+            res.setUserId(userId);
+            res.setRoleId(roleId);
+            res.setResTitle(resTitle);
+            res.setResDescription(resDescription);
+            return videoService.saveRes(res, files);
     }
 
     @DeleteMapping("/remove")
-    public String removeVideo(@RequestParam int videoId) {
-        return videoService.removeVideo(videoId);
+    public String removeVideo(@RequestParam int resId) {
+        return videoService.removeRes(resId);
     }
 
     @PutMapping("/update/info")
-    public String updateVideoInfo(@RequestParam int videoId, @RequestParam int userId,  @RequestParam String videoTitle, @RequestParam String videoDescription) {
-        return videoService.updateVideo(videoId,userId, videoTitle, videoDescription);
+    public String updateVideoInfo(@RequestParam int resId, @RequestParam int userId,
+                                  @RequestParam String resTitle, @RequestParam String resDescription) {
+        return videoService.updateRes(resId,userId, resTitle, resDescription);
     }
 
     /**

@@ -9,14 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class VideoFile {
-    private int videoId;
+public class Resource {
+    private int resId;
     private int courseId;
     private int userId;
     private int roleId;
-    private float videoScore;
-    private String videoTitle;
-    private String videoDescription;
+    private float resScore;
+    private String resTitle;
+    private String resDescription;
     private String videoPath;
     private String fileUrl;
     private String videoFileName;

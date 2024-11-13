@@ -49,7 +49,7 @@ public class HistoryServiceImpl implements HistoryService {
         ArrayList<History> histories = historyMapper.getHistoryList(watcherId);
         for (History h : histories) {
             h.setUpName(userMapper.getUserInfoByUserId(h.getUserId()).getUsername());
-            h.setVideoTitle(videoMapper.getVideo(h.getVideoId()).getVideoTitle());
+            h.setVideoTitle(videoMapper.getVideo(h.getVideoId()).getResTitle());
         }
         return histories;
     }

@@ -4,61 +4,61 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bpr.bprbackend2.mapper.VideoMapper">
 
-    <select id="getVideoList" resultType="com.bpr.bprbackend2.model.VideoFile">
-        SELECT video_title, video_id
-        FROM Video
+    <select id="getVideoList" resultType="com.bpr.bprbackend2.model.Resource">
+        SELECT res_title, res_id
+        FROM Resource
         WHERE course_id = #{courseId}
     </select>
 
-    <select id="getVideo" resultType="com.bpr.bprbackend2.model.VideoFile">
+    <select id="getVideo" resultType="com.bpr.bprbackend2.model.Resource">
         SELECT *
-        FROM Video
-        WHERE video_id = #{videoId}
+        FROM Resource
+        WHERE res_id = #{resId}
     </select>
 
-    <select id="getVideoListByUser" resultType="com.bpr.bprbackend2.model.VideoFile">
-        SELECT video_title, video_id
-        FROM Video
+    <select id="getVideoListByUser" resultType="com.bpr.bprbackend2.model.Resource">
+        SELECT res_title, res_id
+        FROM Resource
         WHERE user_id = #{userId}
     </select>
 
-    <insert id="addVideo" parameterType="com.bpr.bprbackend2.model.VideoFile">
-        INSERT INTO Video (video_id, course_id, user_id, role_id, video_title,
-                           video_description, video_score, video_path, file_url,
+    <insert id="addVideo" parameterType="com.bpr.bprbackend2.model.Resource">
+        INSERT INTO Resource (res_id, course_id, user_id, role_id, res_title,
+                           res_description, res_score, video_path, file_url,
                            video_file_name, file_name, video_file_download, file_name_download,
                            video_size, file_size)
-        VALUES (#{videoId}, #{courseId}, #{userId}, #{roleId}, #{videoTitle},
-                #{videoDescription}, #{videoScore}, #{videoPath}, #{fileUrl},
+        VALUES (#{resId}, #{courseId}, #{userId}, #{roleId}, #{resTitle},
+                #{resDescription}, #{resScore}, #{videoPath}, #{fileUrl},
                 #{videoFileName}, #{fileName}, #{videoFileDownload}, #{fileNameDownload},
                 #{videoSize}, #{fileSize})
     </insert>
 
     <delete id="removeVideo">
-        DELETE FROM Video WHERE video_id = #{videoId}
+        DELETE FROM Resource WHERE res_id = #{resId}
     </delete>
 
-    <update id="updateVideoInfo" parameterType="com.bpr.bprbackend2.model.VideoFile">
-        UPDATE Video
-        SET video_title = #{videoTitle}, video_description = #{videoDescription}
-        WHERE video_id = #{videoId};
+    <update id="updateVideoInfo" parameterType="com.bpr.bprbackend2.model.Resource">
+        UPDATE Resource
+        SET res_title = #{resTitle}, res_description = #{resDescription}
+        WHERE res_id = #{resId};
     </update>
 
-    <select id="getVideoPathByName" resultType="com.bpr.bprbackend2.model.VideoFile">
-        SELECT Video.video_path
-        FROM Video
+    <select id="getVideoPathByName" resultType="com.bpr.bprbackend2.model.Resource">
+        SELECT Resource.video_path
+        FROM Resource
         WHERE video_file_name = #{videoFileName}
     </select>
 
-    <select id="getFilePathByName" resultType="com.bpr.bprbackend2.model.VideoFile">
-        SELECT Video.file_url
-        FROM Video
+    <select id="getFilePathByName" resultType="com.bpr.bprbackend2.model.Resource">
+        SELECT Resource.file_url
+        FROM Resource
         WHERE file_name = #{fileName}
     </select>
 
-    <update id="updateVideoScore" parameterType="com.bpr.bprbackend2.model.VideoFile">
-        UPDATE Video
-        SET video_score = #{videoScore}
-        WHERE video_id = #{videoId}
+    <update id="updateVideoScore" parameterType="com.bpr.bprbackend2.model.Resource">
+        UPDATE Resource
+        SET res_score = #{resScore}
+        WHERE res_id = #{resId}
     </update>
 
 </mapper>

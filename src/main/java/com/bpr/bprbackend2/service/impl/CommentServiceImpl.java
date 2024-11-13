@@ -4,7 +4,7 @@ import com.bpr.bprbackend2.mapper.CommentMapper;
 import com.bpr.bprbackend2.mapper.UserMapper;
 import com.bpr.bprbackend2.mapper.VideoMapper;
 import com.bpr.bprbackend2.model.Comment;
-import com.bpr.bprbackend2.model.VideoFile;
+import com.bpr.bprbackend2.model.Resource;
 import com.bpr.bprbackend2.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,28 +25,28 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public String addComment(Comment comment) {
                 int videoId = comment.getVideoId();
-        VideoFile videoFile = videoMapper.getVideo(videoId);
+        Resource resource = videoMapper.getVideo(videoId);
 
         String senderName = userMapper.getUserInfoByUserId(comment.getSenderId()).getUsername();
 
-        if (videoFile == null) {
+        if (resource == null) {
             return "Cannot find video";
         }
 
         comment.setCommentTime(System.currentTimeMillis());
-        ArrayList<Comment> comments = commentMapper.getCommentList(videoFile.getVideoId());
+        ArrayList<Comment> comments = commentMapper.getCommentList(resource.getResId());
         for (Comment c : comments) {
             if (c.getSenderId() == comment.getSenderId()) {
-                updateRemoveScore(1, comment.getCommentScore(), c.getCommentScore(), videoFile.getVideoId());
+                updateRemoveScore(1, comment.getCommentScore(), c.getCommentScore(), resource.getResId());
                 commentMapper.updateComment(comment);
                 return "Comment updated";
             }
         }
-        comment.setUserId(videoFile.getUserId());
-        comment.setCourseId(videoFile.getCourseId());
-        comment.setRoleId(videoFile.getRoleId());
+        comment.setUserId(resource.getUserId());
+        comment.setCourseId(resource.getCourseId());
+        comment.setRoleId(resource.getRoleId());
         comment.setSenderName(senderName);
-        addVideoScore(comment.getCommentScore(), videoFile.getVideoId());
+        addVideoScore(comment.getCommentScore(), resource.getResId());
         commentMapper.addComment(comment);
         return "Comment added";
     }
@@ -70,20 +70,20 @@ public class CommentServiceImpl implements CommentService {
 
     private void addVideoScore(float score, int videoId) {
         ArrayList<Comment> comments = commentMapper.getCommentList(videoId);
-        VideoFile videoFile = videoMapper.getVideo(videoId);
+        Resource resource = videoMapper.getVideo(videoId);
         int commentSize = comments.size();
-        float currentScore = videoFile.getVideoScore();
+        float currentScore = resource.getResScore();
         float newScore = 0;
         newScore = (currentScore * commentSize + score) / (commentSize + 1);
-        videoFile.setVideoScore(newScore);
-        videoMapper.updateVideoScore(videoFile);
+        resource.setResScore(newScore);
+        videoMapper.updateVideoScore(resource);
     }
 
     private void updateRemoveScore(int type, float score, float oldScore, int videoId) {
         ArrayList<Comment> comments = commentMapper.getCommentList(videoId);
-        VideoFile videoFile = videoMapper.getVideo(videoId);
+        Resource resource = videoMapper.getVideo(videoId);
         int commentSize = comments.size();
-        float currentScore = videoFile.getVideoScore();
+        float currentScore = resource.getResScore();
         float newScore = 0;
         switch (type) {
             case 1: // edit
@@ -91,8 +91,8 @@ public class CommentServiceImpl implements CommentService {
             case 2: // remove
                 newScore = (currentScore * commentSize - oldScore) / (commentSize - 1);
         }
-        videoFile.setVideoScore(newScore);
-        videoMapper.updateVideoScore(videoFile);
+        resource.setResScore(newScore);
+        videoMapper.updateVideoScore(resource);
     }
 }
 

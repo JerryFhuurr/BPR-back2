@@ -4,15 +4,11 @@ import com.bpr.bprbackend2.hanlders.UriHandler;
 import com.bpr.bprbackend2.mapper.CommentMapper;
 import com.bpr.bprbackend2.mapper.UserMapper;
 import com.bpr.bprbackend2.mapper.VideoMapper;
-import com.bpr.bprbackend2.model.VideoFile;
-import com.bpr.bprbackend2.service.UserService;
+import com.bpr.bprbackend2.model.Resource;
 import com.bpr.bprbackend2.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -21,7 +17,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.UUID;
 
 @Service
 public class VideoServiceImpl implements VideoService {
@@ -37,22 +32,22 @@ public class VideoServiceImpl implements VideoService {
 
 
     @Override
-    public ArrayList<VideoFile> getVideoList(int courseId) {
+    public ArrayList<Resource> getResList(int courseId) {
         return videoMapper.getVideoList(courseId);
     }
 
     @Override
-    public ArrayList<VideoFile> getVideoListByUser(int userId) {
+    public ArrayList<Resource> getResListByUser(int userId) {
         return videoMapper.getVideoListByUser(userId);
     }
 
     @Override
-    public VideoFile getVideo(int videoId) {
-        return videoMapper.getVideo(videoId);
+    public Resource getRes(int resId) {
+        return videoMapper.getVideo(resId);
     }
 
     @Override
-    public String saveVideo(VideoFile video, MultipartFile[] files) {
+    public String saveRes(Resource video, MultipartFile[] files) {
         if (video.getRoleId() == 3) {
             return "Can only upload files by teacher or admin";
         } else {
@@ -91,8 +86,8 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public String removeVideo(int videoId) {
-        VideoFile video = videoMapper.getVideo(videoId);
+    public String removeRes(int resId) {
+        Resource video = videoMapper.getVideo(resId);
         File file = new File(video.getVideoPath());
         if (video.getFileUrl() != null) {
             File file2 = new File(video.getFileUrl());
@@ -100,8 +95,8 @@ public class VideoServiceImpl implements VideoService {
         }
         if (file.exists()) {
             file.delete();
-            commentMapper.removeCommentByVideo(videoId);
-            videoMapper.removeVideo(videoId);
+            commentMapper.removeCommentByVideo(resId);
+            videoMapper.removeVideo(resId);
             return "Deleted Successfully";
         } else {
             return "Cannot find the video file";
@@ -109,11 +104,11 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
-    public String updateVideo(int videoId, int userID, String title, String description) {
-        VideoFile oldVideo = videoMapper.getVideo(videoId);
+    public String updateRes(int resId, int userID, String title, String description) {
+        Resource oldVideo = videoMapper.getVideo(resId);
         if (oldVideo.getUserId() == userID || userMapper.getUserRoleById(userID).equals("admin")) {
-            oldVideo.setVideoTitle(title);
-            oldVideo.setVideoDescription(description);
+            oldVideo.setResTitle(title);
+            oldVideo.setResDescription(description);
             videoMapper.updateVideoInfo(oldVideo);
             return "Updated Successfully";
         } else {
@@ -123,13 +118,13 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public String getVideoPathByName(String videoFileName) {
-        VideoFile vf = videoMapper.getVideoPathByName(videoFileName);
+        Resource vf = videoMapper.getVideoPathByName(videoFileName);
         return vf.getVideoPath();
     }
 
     @Override
     public String getFilePathByName(String fileName) {
-        VideoFile vf = videoMapper.getFilePathByName(fileName);
+        Resource vf = videoMapper.getFilePathByName(fileName);
         return vf.getFileUrl();
     }
 
