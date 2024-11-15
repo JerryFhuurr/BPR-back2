@@ -126,7 +126,6 @@ public class UserServiceImpl implements UserService {
                     for (Integer course : courses) {
                         User userAdd = mapper.getUserInfo(user.getUsername());
                         int roleId = mapper.getUserRoleById2(userAdd.getUserId());
-                        System.out.println("id:" + course + "," + userAdd.getUserId() + "," + roleId);
                         mapper.addUserCourse(course, userAdd.getUserId(), roleId);
                     }
                     return "User successfully added";

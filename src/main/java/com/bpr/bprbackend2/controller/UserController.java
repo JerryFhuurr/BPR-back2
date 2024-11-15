@@ -62,14 +62,20 @@ public class UserController {
         user.setUsername(userTestParam.getUsername());
         user.setPassword(userTestParam.getPassword());
         user.setRole(userTestParam.getRole());
-        switch (user.getRole()) {
-            case "admin":
-                user.setRoleId(1);
-            case "teacher":
-                user.setRoleId(2);
-            case "student":
-                user.setRoleId(3);
+
+        if (userTestParam.getRole().equals("admin")) {
+            user.setRoleId(1);
+            System.out.println("role set admin");
+        } else if (userTestParam.getRole().equals("teacher")) {
+            user.setRoleId(2);
+            System.out.println("role set teacher");
+        } else if (userTestParam.getRole().equals("student")) {
+            user.setRoleId(3);
+            System.out.println("role set student");
+        } else {
+            return "Please select a role";
         }
+
         return userService.addUser(user, userTestParam.getCourses());
     }
 
