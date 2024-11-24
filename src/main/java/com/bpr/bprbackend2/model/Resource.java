@@ -17,12 +17,9 @@ public class Resource {
     private float resScore;
     private String resTitle;
     private String resDescription;
-    private String videoPath;
     private String fileUrl;
-    private String videoFileName;
     private String fileName;
-    private String videoFileDownload;
     private String fileNameDownload;
-    private long videoSize;
     private long fileSize;
+    private String type;
 }

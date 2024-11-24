@@ -2,7 +2,7 @@ package com.bpr.bprbackend2.service.impl;
 
 import com.bpr.bprbackend2.mapper.HistoryMapper;
 import com.bpr.bprbackend2.mapper.UserMapper;
-import com.bpr.bprbackend2.mapper.VideoMapper;
+import com.bpr.bprbackend2.mapper.ResMapper;
 import com.bpr.bprbackend2.model.History;
 import com.bpr.bprbackend2.service.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class HistoryServiceImpl implements HistoryService {
     @Autowired
     private UserMapper userMapper;
     @Autowired
-    private VideoMapper videoMapper;
+    private ResMapper resMapper;
 
     @Override
     public String addHistory(History history) {
@@ -28,7 +28,7 @@ public class HistoryServiceImpl implements HistoryService {
         int count = 0;
         History newHistory = new History();
         for (History h : historyList) {
-            if (h.getVideoId() == history.getVideoId() && h.getWatcherId() == history.getWatcherId()) {
+            if (h.getResId() == history.getResId() && h.getWatcherId() == history.getWatcherId()) {
                 count++;
                 newHistory = h;
             }
@@ -49,7 +49,7 @@ public class HistoryServiceImpl implements HistoryService {
         ArrayList<History> histories = historyMapper.getHistoryList(watcherId);
         for (History h : histories) {
             h.setUpName(userMapper.getUserInfoByUserId(h.getUserId()).getUsername());
-            h.setVideoTitle(videoMapper.getVideo(h.getVideoId()).getResTitle());
+            h.setVideoTitle(resMapper.getRes(h.getResId()).getResTitle());
         }
         return histories;
     }

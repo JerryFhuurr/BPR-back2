@@ -14,7 +14,7 @@ public class History {
     // ↓ video info
     private int userId;
     private int courseId;
-    private int videoId;
+    private int resId;
     private int roleId;
     // ↑
     private int watcherId;

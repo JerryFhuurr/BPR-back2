@@ -4,14 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bpr.bprbackend2.mapper.CommentMapper">
     <insert id="addComment" parameterType="com.bpr.bprbackend2.model.Comment">
-        INSERT INTO Comment (user_id, course_id, video_id, role_id, comment_text, comment_time, comment_score, sender_id, sender_name)
-        VALUES (#{userId}, #{courseId}, #{videoId}, #{roleId}, #{commentText}, #{commentTime}, #{commentScore}, #{senderId}, #{senderName})
+        INSERT INTO Comment (user_id, course_id, res_id, role_id, comment_text, comment_time, comment_score, sender_id, sender_name)
+        VALUES (#{userId}, #{courseId}, #{resId}, #{roleId}, #{commentText}, #{commentTime}, #{commentScore}, #{senderId}, #{senderName})
     </insert>
 
     <select id="getCommentList" resultType="com.bpr.bprbackend2.model.Comment">
         SELECT *
         FROM Comment
-        WHERE video_id=#{videoId}
+        WHERE res_id=#{resId}
     </select>
 
     <select id="getCommentListByUser" resultType="com.bpr.bprbackend2.model.Comment">
@@ -25,7 +25,7 @@
     </delete>
 
     <delete id="removeCommentByVideo">
-        DELETE FROM Comment WHERE video_id=#{videoId}
+        DELETE FROM Comment WHERE res_id=#{resId}
     </delete>
 
     <select id="getAComment" resultType="com.bpr.bprbackend2.model.Comment">

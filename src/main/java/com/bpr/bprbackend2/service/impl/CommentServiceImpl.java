@@ -2,7 +2,7 @@ package com.bpr.bprbackend2.service.impl;
 
 import com.bpr.bprbackend2.mapper.CommentMapper;
 import com.bpr.bprbackend2.mapper.UserMapper;
-import com.bpr.bprbackend2.mapper.VideoMapper;
+import com.bpr.bprbackend2.mapper.ResMapper;
 import com.bpr.bprbackend2.model.Comment;
 import com.bpr.bprbackend2.model.Resource;
 import com.bpr.bprbackend2.service.CommentService;
@@ -17,15 +17,15 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentMapper commentMapper;
     @Autowired
-    private VideoMapper videoMapper;
+    private ResMapper resMapper;
     @Autowired
     private UserMapper userMapper;
 
 
     @Override
     public String addComment(Comment comment) {
-                int videoId = comment.getVideoId();
-        Resource resource = videoMapper.getVideo(videoId);
+        int videoId = comment.getResId();
+        Resource resource = resMapper.getRes(videoId);
 
         String senderName = userMapper.getUserInfoByUserId(comment.getSenderId()).getUsername();
 
@@ -62,7 +62,7 @@ public class CommentServiceImpl implements CommentService {
         if (comment == null) {
             return "Cannot find comment";
         } else {
-            updateRemoveScore(2, 0, comment.getCommentScore(), comment.getVideoId());
+            updateRemoveScore(2, 0, comment.getCommentScore(), comment.getResId());
             commentMapper.removeComment(commentId);
             return "Comment removed";
         }
@@ -70,18 +70,18 @@ public class CommentServiceImpl implements CommentService {
 
     private void addVideoScore(float score, int videoId) {
         ArrayList<Comment> comments = commentMapper.getCommentList(videoId);
-        Resource resource = videoMapper.getVideo(videoId);
+        Resource resource = resMapper.getRes(videoId);
         int commentSize = comments.size();
         float currentScore = resource.getResScore();
         float newScore = 0;
         newScore = (currentScore * commentSize + score) / (commentSize + 1);
         resource.setResScore(newScore);
-        videoMapper.updateVideoScore(resource);
+        resMapper.updateResScore(resource);
     }
 
     private void updateRemoveScore(int type, float score, float oldScore, int videoId) {
         ArrayList<Comment> comments = commentMapper.getCommentList(videoId);
-        Resource resource = videoMapper.getVideo(videoId);
+        Resource resource = resMapper.getRes(videoId);
         int commentSize = comments.size();
         float currentScore = resource.getResScore();
         float newScore = 0;
@@ -92,7 +92,7 @@ public class CommentServiceImpl implements CommentService {
                 newScore = (currentScore * commentSize - oldScore) / (commentSize - 1);
         }
         resource.setResScore(newScore);
-        videoMapper.updateVideoScore(resource);
+        resMapper.updateResScore(resource);
     }
 }
 

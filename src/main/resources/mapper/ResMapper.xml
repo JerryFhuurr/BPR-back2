@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bpr.bprbackend2.mapper.ResMapper">
+
+    <select id="getResList" resultType="com.bpr.bprbackend2.model.Resource">
+        SELECT res_title, res_id
+        FROM Resource
+        WHERE course_id = #{courseId}
+    </select>
+
+    <select id="getRes" resultType="com.bpr.bprbackend2.model.Resource">
+        SELECT *
+        FROM Resource
+        WHERE res_id = #{resId}
+    </select>
+
+    <select id="getResListByUser" resultType="com.bpr.bprbackend2.model.Resource">
+        SELECT res_title, res_id
+        FROM Resource
+        WHERE user_id = #{userId}
+    </select>
+
+    <insert id="addRes" parameterType="com.bpr.bprbackend2.model.Resource">
+        INSERT INTO Resource (res_id, course_id, user_id, role_id, res_title,
+                           res_description, res_score, file_url,
+                           file_name, file_name_download,
+                             file_size, type)
+        VALUES (#{resId}, #{courseId}, #{userId}, #{roleId}, #{resTitle},
+                #{resDescription}, #{resScore}, #{fileUrl},
+                #{fileName}, #{fileNameDownload},
+                 #{fileSize}, #{type})
+    </insert>
+
+    <delete id="removeRes">
+        DELETE FROM Resource WHERE res_id = #{resId}
+    </delete>
+
+    <update id="updateResInfo" parameterType="com.bpr.bprbackend2.model.Resource">
+        UPDATE Resource
+        SET res_title = #{resTitle}, res_description = #{resDescription}
+        WHERE res_id = #{resId};
+    </update>
+
+    <select id="getFilePathByName" resultType="com.bpr.bprbackend2.model.Resource">
+        SELECT Resource.file_url
+        FROM Resource
+        WHERE file_name = #{fileName}
+    </select>
+
+    <update id="updateResScore" parameterType="com.bpr.bprbackend2.model.Resource">
+        UPDATE Resource
+        SET res_score = #{resScore}
+        WHERE res_id = #{resId}
+    </update>
+
+</mapper>

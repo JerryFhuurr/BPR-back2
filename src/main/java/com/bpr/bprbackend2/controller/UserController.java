@@ -4,7 +4,7 @@ import com.bpr.bprbackend2.model.User;
 import com.bpr.bprbackend2.model.UserTestParam;
 import com.bpr.bprbackend2.model.Resource;
 import com.bpr.bprbackend2.service.UserService;
-import com.bpr.bprbackend2.service.VideoService;
+import com.bpr.bprbackend2.service.ResService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private VideoService videoService;
+    private ResService resService;
 
     @GetMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password) {
@@ -45,10 +45,10 @@ public class UserController {
 
     @DeleteMapping("/remove")
     public String remove(@RequestParam int id) {
-        ArrayList<Resource> resources = videoService.getResListByUser(id);
+        ArrayList<Resource> resources = resService.getResListByUser(id);
         if (resources.size() > 0) {
             for (Resource resource : resources) {
-                videoService.removeRes(resource.getResId());
+                resService.removeRes(resource.getResId());
             }
         }
 
