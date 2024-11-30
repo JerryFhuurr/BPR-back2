@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bpr.bprbackend2.mapper.HistoryMapper">
     <insert id="addHistory" parameterType="com.bpr.bprbackend2.model.History">
-        INSERT INTO History (user_id, course_id, video_id, role_id, watcher_id, watch_time)
-        VALUES (#{userId}, #{courseId}, #{videoId}, #{roleId}, #{watcherId}, #{watchTime})
+        INSERT INTO History (user_id, course_id, res_id, role_id, watcher_id, watch_time)
+        VALUES (#{userId}, #{courseId}, #{resId}, #{roleId}, #{watcherId}, #{watchTime})
     </insert>
 
     <select id="getHistoryList" resultType="com.bpr.bprbackend2.model.History">

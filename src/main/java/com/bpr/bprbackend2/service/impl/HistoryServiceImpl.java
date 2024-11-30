@@ -47,10 +47,10 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public ArrayList<History> getHistoryList(int watcherId) {
         ArrayList<History> histories = historyMapper.getHistoryList(watcherId);
-        for (History h : histories) {
-            h.setUpName(userMapper.getUserInfoByUserId(h.getUserId()).getUsername());
-            h.setVideoTitle(resMapper.getRes(h.getResId()).getResTitle());
-        }
+//        for (History h : histories) {
+//            h.setUpName(userMapper.getUserInfoByUserId(h.getUserId()).getUsername());
+//            h.setVideoTitle(resMapper.getRes(h.getResId()).getResTitle());
+//        }
         return histories;
     }
 
