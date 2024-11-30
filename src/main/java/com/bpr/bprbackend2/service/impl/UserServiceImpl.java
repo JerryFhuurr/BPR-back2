@@ -139,7 +139,8 @@ public class UserServiceImpl implements UserService {
         if (newPassword.length() < 6) {
             return "Password must be at least 6 characters";
         } else {
-            mapper.updateUserPassword(username, newPassword);
+            mapper.updateUserPassword(username,
+                    MD5Utils.generateSaltPassword(newPassword));
             return "Password updated successfully";
         }
     }
