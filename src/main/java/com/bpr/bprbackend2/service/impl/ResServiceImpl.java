@@ -6,6 +6,7 @@ import com.bpr.bprbackend2.mapper.UserMapper;
 import com.bpr.bprbackend2.mapper.ResMapper;
 import com.bpr.bprbackend2.model.Resource;
 import com.bpr.bprbackend2.service.interfaces.ResService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 @Service
+@Slf4j
 public class ResServiceImpl implements ResService {
 
     @Autowired

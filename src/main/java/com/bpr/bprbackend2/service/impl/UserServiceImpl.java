@@ -7,12 +7,14 @@ import com.bpr.bprbackend2.mapper.UserMapper;
 import com.bpr.bprbackend2.model.Comment;
 import com.bpr.bprbackend2.model.User;
 import com.bpr.bprbackend2.service.interfaces.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper mapper;

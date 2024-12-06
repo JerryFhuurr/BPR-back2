@@ -5,12 +5,14 @@ import com.bpr.bprbackend2.mapper.UserMapper;
 import com.bpr.bprbackend2.mapper.ResMapper;
 import com.bpr.bprbackend2.model.History;
 import com.bpr.bprbackend2.service.interfaces.HistoryService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
+@Slf4j
 public class HistoryServiceImpl implements HistoryService {
 
     @Autowired

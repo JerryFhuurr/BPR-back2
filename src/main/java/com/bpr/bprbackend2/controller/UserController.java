@@ -21,11 +21,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password) {
-        if (username.equals("ET")) {
-            return "Cannot login with this account !";
-        } else {
-            return userService.loginGet(username, password);
-        }
+        return userService.loginGet(username, password);
     }
 
     @GetMapping("/getinfo")
