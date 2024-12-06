@@ -1,6 +1,6 @@
 package com.bpr.bprbackend2.service.impl;
 
-import com.bpr.bprbackend2.hanlders.MD5Utils;
+import com.bpr.bprbackend2.utility.MD5Utils;
 import com.bpr.bprbackend2.mapper.CommentMapper;
 import com.bpr.bprbackend2.mapper.HistoryMapper;
 import com.bpr.bprbackend2.mapper.UserMapper;

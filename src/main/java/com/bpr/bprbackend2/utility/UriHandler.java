@@ -1,4 +1,4 @@
-package com.bpr.bprbackend2.hanlders;
+package com.bpr.bprbackend2.utility;
 
 public class UriHandler {
     public static final String localBaseUri = "http://192.168.0.150:8080";

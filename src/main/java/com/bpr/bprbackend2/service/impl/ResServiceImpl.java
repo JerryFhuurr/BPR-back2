@@ -1,6 +1,6 @@
 package com.bpr.bprbackend2.service.impl;
 
-import com.bpr.bprbackend2.hanlders.UriHandler;
+import com.bpr.bprbackend2.utility.UriHandler;
 import com.bpr.bprbackend2.mapper.CommentMapper;
 import com.bpr.bprbackend2.mapper.UserMapper;
 import com.bpr.bprbackend2.mapper.ResMapper;
