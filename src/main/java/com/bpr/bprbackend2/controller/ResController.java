@@ -2,7 +2,7 @@ package com.bpr.bprbackend2.controller;
 
 import cn.hutool.core.io.FileUtil;
 import com.bpr.bprbackend2.model.Resource;
-import com.bpr.bprbackend2.service.ResService;
+import com.bpr.bprbackend2.service.interfaces.ResService;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;

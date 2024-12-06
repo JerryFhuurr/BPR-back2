@@ -4,7 +4,7 @@ import com.bpr.bprbackend2.mapper.HistoryMapper;
 import com.bpr.bprbackend2.mapper.UserMapper;
 import com.bpr.bprbackend2.mapper.ResMapper;
 import com.bpr.bprbackend2.model.History;
-import com.bpr.bprbackend2.service.HistoryService;
+import com.bpr.bprbackend2.service.interfaces.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

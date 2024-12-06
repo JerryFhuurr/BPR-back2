@@ -5,7 +5,7 @@ import com.bpr.bprbackend2.mapper.UserMapper;
 import com.bpr.bprbackend2.mapper.ResMapper;
 import com.bpr.bprbackend2.model.Comment;
 import com.bpr.bprbackend2.model.Resource;
-import com.bpr.bprbackend2.service.CommentService;
+import com.bpr.bprbackend2.service.interfaces.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

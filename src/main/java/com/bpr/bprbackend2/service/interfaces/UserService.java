@@ -1,4 +1,4 @@
-package com.bpr.bprbackend2.service;
+package com.bpr.bprbackend2.service.interfaces;
 
 import com.bpr.bprbackend2.model.User;
 

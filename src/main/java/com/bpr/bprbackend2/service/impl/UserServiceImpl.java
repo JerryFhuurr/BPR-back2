@@ -6,7 +6,7 @@ import com.bpr.bprbackend2.mapper.HistoryMapper;
 import com.bpr.bprbackend2.mapper.UserMapper;
 import com.bpr.bprbackend2.model.Comment;
 import com.bpr.bprbackend2.model.User;
-import com.bpr.bprbackend2.service.UserService;
+import com.bpr.bprbackend2.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

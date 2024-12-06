@@ -3,8 +3,8 @@ package com.bpr.bprbackend2.controller;
 import com.bpr.bprbackend2.model.User;
 import com.bpr.bprbackend2.model.UserTestParam;
 import com.bpr.bprbackend2.model.Resource;
-import com.bpr.bprbackend2.service.UserService;
-import com.bpr.bprbackend2.service.ResService;
+import com.bpr.bprbackend2.service.interfaces.UserService;
+import com.bpr.bprbackend2.service.interfaces.ResService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

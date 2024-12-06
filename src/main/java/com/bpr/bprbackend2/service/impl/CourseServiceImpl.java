@@ -2,7 +2,7 @@ package com.bpr.bprbackend2.service.impl;
 
 import com.bpr.bprbackend2.mapper.CourseMapper;
 import com.bpr.bprbackend2.model.Course;
-import com.bpr.bprbackend2.service.CourseService;
+import com.bpr.bprbackend2.service.interfaces.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
